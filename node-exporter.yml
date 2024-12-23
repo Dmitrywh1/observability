@@ -1,0 +1,5 @@
+- name: Install node-exporter
+  hosts: cms
+  become: true
+  roles:
+    - node-exporter

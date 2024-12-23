@@ -1,1 +1,7 @@
 roles/blackbox/files/blackbox_exporter
+roles/mysql-exporter/files/mysql_exporter
+roles/node-exporter/files/node_exporter
+roles/prometheus/files/consoles
+roles/prometheus/files/prometheus
+roles/prometheus/files/console_libraries
+roles/prometheus/files/promtool

@@ -1,0 +1,5 @@
+- name: Install mysql
+  hosts: cms
+  become: true
+  roles:
+    - mysql-exporter

@@ -1,0 +1,86 @@
+- name: Ensure the system group is present
+  group:
+    name: "{{ service.group }}"
+    system: yes
+    state: present
+
+- name: Ensure the 'service' system user exists
+  user:
+    name: "{{ service.name }}"
+    shell: /sbin/nologin
+    system: yes
+    group: "{{ service.group }}"
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ service.name }}"
+    group: "{{ service.group }}"
+  loop:
+    - "/etc/{{ service.name }}"
+    - "/var/lib/{{ service.name }}"
+
+- name: Copy binaries
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin
+    owner: "{{ service.name }}"
+    group: "{{ service.group }}"
+    mode: 0755
+  loop:
+    - "files/{{ service.bin_name }}"
+    - files/promtool
+
+- name: Copy library and config
+  copy:
+    src: "{{ item }}"
+    dest: "{{ service.config_dir }}"
+    owner: "{{ service.name }}"
+    group: "{{ service.group }}"
+  loop:
+    - files/console_libraries
+    - files/consoles
+
+- name: Copy service config
+  copy:
+    src: "{{ item }}"
+    dest: /etc/systemd/system
+  loop:
+    - "files/{{ service.unit_name }}.service"
+
+- name: Start and enable service
+  ansible.builtin.systemd:
+    name: "{{ service.name }}"
+    state: started
+    enabled: true
+
+- name: Copy library and config
+  copy:
+    src: "{{ item }}"
+    dest: "{{ service.config_dir }}"
+    owner: "{{ service.name }}"
+    group: "{{ service.group }}"
+  loop:
+    - "files/{{ service.name }}.yml"
+  notify:
+    - Restart service
+
+- name: Ensure service is started and enabled
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+    name: "{{ service.name }}"
+    state: started
+    enabled: true
+
+- name: Ensure service is running
+  ansible.builtin.uri:
+    url: "{{ service.addr }}"
+    method: GET
+    return_content: yes
+  register: service_check
+  until: service_check.json.status == 'success'
+  retries: 5
+  delay: 10

@@ -1,0 +1,5 @@
+- name: Install blackbox
+  hosts: cms
+  become: true
+  roles:
+    - blackbox

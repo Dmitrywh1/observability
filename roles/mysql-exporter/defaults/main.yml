@@ -1,0 +1,8 @@
+service:
+  name: "mysql-exporter"
+  group: "mysql-exporter"
+  config_dir: ""
+  addr: "http://localhost:9104"
+  unit_name: "mysql_exporter"
+  bin_name: "mysql_exporter"
+  env_file: "mysql_exporter"

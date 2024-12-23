@@ -1,0 +1,7 @@
+service:
+  name: "prometheus"
+  group: "prometheus"
+  config_dir: "/etc/prometheus"
+  addr: "http://localhost:9090/api/v1/query?query=up"
+  unit_name: "prometheus"
+  bin_name: "prometheus"

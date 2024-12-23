@@ -1,0 +1,7 @@
+service:
+  name: "node-exporter"
+  group: "node-exporter"
+  config_dir: ""
+  addr: "http://localhost:9100"
+  unit_name: "node-exporter"
+  bin_name: "node_exporter"

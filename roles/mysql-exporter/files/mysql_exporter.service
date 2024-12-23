@@ -1,0 +1,14 @@
+[Unit]
+Description=MySQL Exporter
+After=network.target
+
+[Service]
+User=mysql-exporter
+Group=mysql-exporter
+Type=simple
+ExecStart=/usr/local/bin/mysql_exporter --config.my-cnf /etc/mysql-exporter/mysql_exporter.env
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

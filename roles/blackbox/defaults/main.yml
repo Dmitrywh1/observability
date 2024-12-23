@@ -1,0 +1,7 @@
+service:
+  name: "blackbox"
+  group: "blackbox"
+  config_dir: "/opt/blackbox"
+  addr: "http://localhost:9115"
+  unit_name: "blackbox_exporter"
+  bin_name: "blackbox_exporter"
