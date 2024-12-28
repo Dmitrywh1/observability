@@ -1,6 +1,15 @@
 global:
   scrape_interval: 5s
   evaluation_interval: 15s
+  external_labels:
+    site: prod
+
+remote_write:
+  - url: http://localhost:8428/api/v1/write
+    queue_config:
+      max_samples_per_send: 10000
+      capacity: 20000
+      max_shards: 30
 
 alerting:
   alertmanagers:
