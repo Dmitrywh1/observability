@@ -33,7 +33,7 @@
     - "files/{{ service.bin_name }}"
     - files/promtool
 
-- name: Copy library and config
+- name: Copy library
   copy:
     src: "{{ item }}"
     dest: "{{ service.config_dir }}"
@@ -56,7 +56,7 @@
     state: started
     enabled: true
 
-- name: Copy library and config
+- name: Copy config
   copy:
     src: "{{ item }}"
     dest: "{{ service.config_dir }}"
