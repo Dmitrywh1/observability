@@ -5,3 +5,4 @@ roles/prometheus/files/consoles
 roles/prometheus/files/prometheus
 roles/prometheus/files/console_libraries
 roles/prometheus/files/promtool
+roles/vm/files/victoria-metrics
