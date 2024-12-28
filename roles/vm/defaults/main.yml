@@ -1,0 +1,6 @@
+service:
+  name: "victoria-metrics"
+  group: "victoria-metrics"
+  addr: "http://localhost:8428"
+  unit_name: "victoria-metrics.service"
+  bin_name: "victoria-metrics"
